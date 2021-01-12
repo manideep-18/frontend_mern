@@ -1,5 +1,6 @@
 import React from 'react'
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
+import AddCategory from './admin/AddCategory'
 import { AdminRoute } from './auth/helper/AdminRoutes'
 import { PrivateRoute } from './auth/helper/PrivateRoutes'
 
@@ -18,6 +19,7 @@ export default function Routes(){
                 <Route path="/signin" component={Signin}/>
                 <PrivateRoute path="/user/dashboard" exact component={UserDashboard}/>
                 <AdminRoute path="/admin/dashboard" exact component={AdminDashboard}/>
+                <AdminRoute path="/admin/create/category" exact component={AddCategory}/>
             </Switch>
         </Router>
     )
