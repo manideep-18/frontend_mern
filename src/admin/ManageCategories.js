@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { isAuthenticated } from '../auth/helper'
 
 import Base from '../core/Base'
-import { deleteaCategory, deleteaProduct, getCategories, getProducts } from './helper/adminapicall'
+import { deleteaCategory, getCategories } from './helper/adminapicall'
 
 const ManageCategories = ()=>{
 
@@ -56,7 +56,7 @@ return(
             <div className="col-4">
               <Link
                 className="btn btn-success"
-                to={`/category/${category._id}/${user._id}`}
+                to={`/admin/category/${category._id}/${user._id}`}
               >
                 <span className="">Update</span>
               </Link>

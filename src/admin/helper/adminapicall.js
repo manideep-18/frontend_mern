@@ -42,6 +42,34 @@ export const deleteaCategory = (categoryId,userId,token)=>{
     }).catch(err=> console.log(err))
 }
 
+//get a product
+export const getaCategory = (categoryId) =>{
+    return fetch(`${API}/category/${categoryId}`,{
+        method:'GET'
+    })
+    .then(response=>{
+        return response.json()
+    })
+    .catch(err=>console.log(err))
+}
+
+// update a category
+export const updateCategory = (categoryId,userId,token,category) =>{
+    return fetch(`${API}/category/${categoryId}/${userId}`,{
+        method:"PUT",
+        headers:{
+            Accept:'application/json',
+            "Content-Type": "application/json",
+            Authorization:`Bearer ${token}`,
+        },
+        body:JSON.stringify(category)
+    })
+    .then(response=>{
+        return response.json()
+    })
+    .catch(err=>console.log(err))
+}
+
 // product calls
 
 //creating a product
