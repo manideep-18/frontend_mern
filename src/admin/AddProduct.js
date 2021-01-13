@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { isAuthenticated } from '../auth/helper'
 import Base from '../core/Base'
-import { getCategories } from './helper/adminapicall'
+import { createaProduct, getCategories } from './helper/adminapicall'
 
 export const AddProduct = () =>{
 
@@ -41,14 +41,59 @@ export const AddProduct = () =>{
         preload()
     },[])
 
-    const onSubmit=()=>{
+    const onSubmit=(event)=>{
+        event.preventDefault()
+        setValues({...values,error:'',loading:true})
+        createaProduct(user._id,token,formData)
+        .then(data=>{
+            if(data.error){
+                setValues({...values,error:data.error})
+            }
+            else{
+              setTimeout( ()=>{setValues({
+                ...values,
+                name:'',
+                description:'',
+                price:'',
+                photo:'',
+                stock:'',
+                loading:false,
+                createdProduct:data.name,
+            })},2000)
 
+            setTimeout(()=>{setValues({...values,getaRedirect:true})},3000)
+
+            }
+        })
     }
 
     const handleChange=name=>event=>{
-        const value=name === 'photo'? event.target.file[0] : event.target.value
-        formData(name,value)
+        const value=name === 'photo'? event.target.files[0] : event.target.value
+        formData.set(name,value)
         setValues({...values,[name]:value})
+    }
+
+    const successMessage=()=>(
+        <div className="alert alert-success mt-3" style={{display: createdProduct?"":"none"}}>
+            <h4>{createdProduct} created successfully</h4>
+        </div>
+    )
+
+    const errorMessage=()=>{
+        return (<div className="alert alert-danger mt-3" style={{display: error?"":"none"}}>
+            <h4>{error} occured</h4>
+        </div>)
+    }
+
+    const redirect = ()=>{
+        if(getaRedirect){
+            if(user && user.role === 1){
+              return  (<Redirect to="/admin/dashboard"/>)
+            }
+            else{
+               return (<Redirect to='/user/dashboard'/>)
+            }
+        }
     }
 
     const createProductForm = () => (
@@ -106,10 +151,10 @@ export const AddProduct = () =>{
           </div>
           <div className="form-group">
             <input
-              onChange={handleChange("quantity")}
+              onChange={handleChange("stock")}
               type="number"
               className="form-control"
-              placeholder="Quantity"
+              placeholder="Stock"
               value={stock}
             />
           </div>
@@ -129,7 +174,11 @@ return(
     <Link to='/admin/dashboard' className="btn btn-md btn-dark mb-3">Admin Home</Link>
     <div className="row bg-dark text-white rounded">
         <div className="col-md-8 offset-md-2">
+            {errorMessage()}
+            {successMessage()}
             {createProductForm()}
+            {redirect()}
+            {loading?'submitting':''}
         </div>
     </div>
     </Base>
