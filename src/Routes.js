@@ -1,7 +1,6 @@
 import React from 'react'
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
 import AddCategory from './admin/AddCategory'
-import { ManageCategories } from './admin/ManageCategories'
 import { AddProduct } from './admin/AddProduct'
 import { AdminRoute } from './auth/helper/AdminRoutes'
 import { PrivateRoute } from './auth/helper/PrivateRoutes'
@@ -13,6 +12,7 @@ import Signup from './user/Signup'
 import UserDashboard from './user/UserDashBoard'
 import ManageProducts from './admin/ManageProducts'
 import UpdateProduct from './admin/UpdateProduct'
+import ManageCategories from './admin/ManageCategories'
 
 export default function Routes(){
     return(

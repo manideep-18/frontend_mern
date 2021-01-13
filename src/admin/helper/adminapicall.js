@@ -29,6 +29,19 @@ export const getCategories =()=>{
     .catch(err=>console.log(err))
 }
 
+// deleting a product
+export const deleteaCategory = (categoryId,userId,token)=>{
+    return fetch(`${API}/category/${categoryId}/${userId}`,{
+        method:'DELETE',
+        headers:{
+            Accept:'application/json',
+            Authorization:`Bearer ${token}`
+        }
+    }).then(response=>{
+        return response.json()
+    }).catch(err=> console.log(err))
+}
+
 // product calls
 
 //creating a product
