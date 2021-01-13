@@ -56,7 +56,7 @@ export const getProducts =()=>{
 }
 
 // deleting a product
-export const deleteaProduct = (userId,productId,token)=>{
+export const deleteaProduct = (productId,userId,token)=>{
     return fetch(`${API}/product/${productId}/${userId}`,{
         method:'DELETE',
         headers:{
@@ -65,7 +65,7 @@ export const deleteaProduct = (userId,productId,token)=>{
         }
     }).then(response=>{
         return response.json()
-    }).catch(err=>console.log(err))
+    }).catch(err=> console.log(err))
 }
 
 //get a product
