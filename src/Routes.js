@@ -11,6 +11,7 @@ import AdminDashboard from './user/AdminDashBoard'
 import Signin from './user/Signin'
 import Signup from './user/Signup'
 import UserDashboard from './user/UserDashBoard'
+import ManageProducts from './admin/ManageProducts'
 
 export default function Routes(){
     return(
@@ -24,6 +25,7 @@ export default function Routes(){
                 <AdminRoute path="/admin/create/category" exact component={AddCategory}/>
                 <AdminRoute path="/admin/categories" exact component={ManageCategories}/>
                 <AdminRoute path="/admin/create/product" exact component={AddProduct}/>
+                <AdminRoute path="/admin/products" exact component={ManageProducts}/>
             </Switch>
         </Router>
     )
