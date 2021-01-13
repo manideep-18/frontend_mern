@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Base from '../core/Base'
+import { getCategories } from './helper/adminapicall'
 
 export const AddProduct = () =>{
 
@@ -8,10 +9,34 @@ export const AddProduct = () =>{
         name:"",
         description:"",
         price:"",
-        stock:""
+        stock:"",
+        photo:"",
+        categories:[],
+        category:"",
+        loading:false,
+        error:"",
+        createdProduct:"",
+        getaRedirect:false,
+        formData:""
     })
 
-    const {name,description,price,stock} = values
+    const {name,description,price,stock,categories,category,loading,error,createdProduct,getaRedirect,formData} = values
+
+    const preload = () =>{
+        getCategories()
+        .then(data =>{
+            console.log(data,'???')
+            if(data.error){
+                setValues({...values,error:data.error})
+            }else{
+                setValues({...values,categories:data,formData:new FormData()})
+            }
+        })
+    }
+
+    useEffect(()=>{
+        preload()
+    },[])
 
     const onSubmit=()=>{
 
@@ -83,7 +108,7 @@ export const AddProduct = () =>{
             />
           </div>
           
-          <button type="submit" onClick={onSubmit} className="btn btn-outline-success mb-4">
+          <button type="submit" onClick={onSubmit} className="btn btn-outline-success mt-4">
             Create Product
           </button>
         </form>
