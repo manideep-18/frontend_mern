@@ -29,7 +29,6 @@ const ManageProducts = ()=>{
     const deleteThisProduct=(productId)=>{
         deleteaProduct(productId,user._id,token)
         .then(data =>{
-            console.log(data,'??')
             if(data.error){
                 console.log(data.error)
             }
@@ -57,7 +56,7 @@ return(
             <div className="col-4">
               <Link
                 className="btn btn-success"
-                to={`/admin/product/update/productId`}
+                to={`/admin/product/update/${product._id}`}
               >
                 <span className="">Update</span>
               </Link>
