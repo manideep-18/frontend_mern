@@ -9,14 +9,14 @@ import {getProducts} from './helper/coreapicalls'
 const Cart=()=>{
     
     const [products,setProducts] = useState([])
-   
+   const [reload,setReload]  = useState(false)
 
     const loadAllProducts=()=>{
         return(
             <div>
                 <h2>This section is load to products</h2>
                 {products.map((product,index)=>(
-                    <Card key={index} product={product} addtoCart={false} removefromCart={true}/>
+                    <Card key={index} product={product} addtoCart={false} removefromCart={true} setReload={setReload} reload={reload}/>
                 ))}
             </div>
         )
@@ -24,7 +24,7 @@ const Cart=()=>{
 
     useEffect(()=>{
         setProducts(loadCart())
-    },[])
+    },[reload])
 
     return(
         <Base title="Cart Page" description="Ready to Checkout">
